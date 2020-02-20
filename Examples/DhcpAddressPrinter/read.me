@@ -1,0 +1,19 @@
+It shows the local IP address obtained from a DHCP server
+
+Hardware:
+ - Arduino Uno board
+ - ARSHXIP Ethernet Shield
+ - CAT5 or higher UTP cable
+ - USB cable
+ 
+- Connect the Ethernet Shield with the Arduino Uno board
+- connect the Ethenret cable to the Ethernet Shield and the local network
+- connect Arduino Uno board to the computer where Arduino Uno runs
+- download folder DhcpAddressPrinter on your machine
+- open file DhcpAddressPrinter.ino in Arduino IDE
+- upload sketch
+- on Arduino Uno menu, select Tools/Port: and select the right COM port number
+- on Arduino Uno menu, select Tools/Arduino Monitor to see the local IP address
+- the local IP address is shown once every 10 seconds
+
+There must be a DHCP server running in the local network (usually a router / gateway)
