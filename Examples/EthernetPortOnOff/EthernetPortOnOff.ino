@@ -4,6 +4,8 @@
   Hardware:
  - Arduino Uno board
  - ARSHXNS board
+
+   This program turns on and off network switch port 1 while port 2 stays on. This can be used to cut connection downstream.
 */
 
 #ifdef F_CPU
@@ -42,50 +44,32 @@ void setup() {
 }
 
 void loop() {
-  // make sure bit BUSY in PHYC register is not set
-/*  while(1) {
-    _delay_us(100);
-    SpiR2((ui8PHYC << 2) | bvRCR, 0); // read PHYC register and check for bit BUSY to clear
-    if (!(ui8ArrR6[1] & (1 << 7))) {
-      break;
-    }        
-  }
-*/
-  // write PHYA register (PHY Adress)
-  ui8ArTx[0] = (ui8PHYA << 2) | bvWCR; // virtual address, bit value Write Common Register
-  ui8ArTx[3] = 29;
+
+  // write NSRAD register (Network Switch Register Adress and Data)
+  ui8ArTx[0] = (ui8NSRAD << 2) | bvWCR; // virtual address, bit value Write Common Register
+  ui8ArTx[2] = 1 << 3; // data regsiter
+  ui8ArTx[3] = 29; // address register
   SpiW(4);
 
-  // write PHYD register (PHY Data)
-  ui8ArTx[0] = (ui8PHYD << 2) | bvWCR; // virtual address, bit value Write Common Register
-  ui8ArTx[3] = 1 << 3;
-  SpiW(4);
-  
-  // write PHYC register (PHY Control)
-  ui8ArTx[0] = (ui8PHYC << 2) | bvWCR; // virtual address, bit value Write Common Register
+  // write NSC register (Network Switch Control)
+  ui8ArTx[0] = (ui8NSC << 2) | bvWCR; // virtual address, bit value Write Common Register
   ui8ArTx[3] = 1 << 7; // set bit BUSY for a write operation. Bit LSCIE is thought to be 0
   SpiW(4);
 
-  _delay_ms(10000);
+  _delay_ms(5000);
 
-
-
-  // write PHYA register (PHY Adress)
-  ui8ArTx[0] = (ui8PHYA << 2) | bvWCR; // virtual address, bit value Write Common Register
-  ui8ArTx[3] = 29;
+  // write NSRAD register (Network Switch Register Adress and Data)
+  ui8ArTx[0] = (ui8NSRAD << 2) | bvWCR; // virtual address, bit value Write Common Register
+  ui8ArTx[2] = 0; // data regsiter
+  ui8ArTx[3] = 29; // address register
   SpiW(4);
 
-  // write PHYD register (PHY Data)
-  ui8ArTx[0] = (ui8PHYD << 2) | bvWCR; // virtual address, bit value Write Common Register
-  ui8ArTx[3] = 0;
-  SpiW(4);
-  
   // write PHYC register (PHY Control)
-  ui8ArTx[0] = (ui8PHYC << 2) | bvWCR; // virtual address, bit value Write Common Register
+  ui8ArTx[0] = (ui8NSC << 2) | bvWCR; // virtual address, bit value Write Common Register
   ui8ArTx[3] = 1 << 7; // set bit BUSY for a write operation. Bit LSCIE is thought to be 0
   SpiW(4);
 
-  _delay_ms(10000);
+  _delay_ms(5000);
 
 }
 

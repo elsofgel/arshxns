@@ -9,9 +9,8 @@ const uint8_t bvRCR = 3;
 
 const uint8_t ui8GC = 0; // General Control register
 const uint8_t ui8HHG = 2; // Host IP Address, Host Subnet Mask and Gateway IP Address registers
-const uint8_t ui8PHYC = 5;
-const uint8_t ui8PHYA = 6;
-const uint8_t ui8PHYD = 7;
+const uint8_t ui8NSC = 5;
+const uint8_t ui8NSRAD = 6;
 const uint8_t ui8DHCS = 12; // DHCP Control and Status register
 const uint8_t ui8TRISB = 20; // TRISB
 const uint8_t ui8TRISE = 23; // TRISE
